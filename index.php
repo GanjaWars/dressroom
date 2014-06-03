@@ -1,6 +1,5 @@
 <?php
 require_once 'cpanel/config.php';
-include 'cpanel/db_mysql.class.php';
 include 'cpanel/items.class.php';
 include 'cpanel/Request.php';
 

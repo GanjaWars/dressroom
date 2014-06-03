@@ -1,6 +1,5 @@
 <?php
 require_once 'config.php';
-include 'db_mysql.class.php';
 include 'items.class.php';
 include 'Request.php';
 
