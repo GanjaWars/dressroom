@@ -1,0 +1,32 @@
+.field label {
+    display: inline-block;
+    width: 300px;
+}
+
+.focus {
+    background: #DDD;
+}
+
+.error,
+.success {
+    display: inline-block;
+    padding: 5px;
+}
+
+.error {
+    border: 1px solid red;
+}
+
+.success {
+    border: 1px solid green;
+}
+
+.item {
+    display: inline-block;
+    text-align: center;
+    width: 75px;
+}
+
+.item img {
+
+}

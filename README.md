@@ -1,2 +1,2 @@
-dressroom
+Переодевалка для GanjaWars.ru
 =========

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление предмета</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<?php
+if ($template->status == 'error') {?>
+    <div class="error">Предмет с таким id уже существует.</div>
+<?php } else if ($template->status == 'error2') {?>
+    <div class="error">Ошибка при добавлении предмета.</div>
+<?php } else if ($template->status == 'success') {?>
+    <div class="success">Предмет успешно добавлен.</div>
+<?php } ?>
+<div></div><a href="index.php">вернуться на главную</a></div>
+<h1><?php if (!isset($template->item)) {?>
+    Добавить предмет
+<?php } else { ?>
+    Редактировать предмет
+<?php } ?>
+</h1>
+<form action="add.php" method="post">
+    <?php
+        foreach ($template->itemsMap as $itemKey => $itemValue) {
+    ?>
+
+    <div class="field">
+        <?php if (is_array($itemValue)) { ?>
+            <label><?php echo $itemValue['title']; ?>:</label>
+            <?php if (!isset($itemValue['plus'])) {?>
+            <select <?php if($itemKey == 'type') { ?>required<?php } ?> name="<?php echo $itemKey; ?>">
+                <option />
+                <?php foreach ($itemValue['value'] as $key => $value) { ?>
+                    <option value="<?php echo $key; ?>" <?php if (isset($template->item) && $template->item[$itemKey] == $key) {?>selected="selected"<?php } ?> ><?php echo $value; ?></option>
+                <?php } ?>
+            </select>
+            <?php } else { ?>
+                <?php
+                    $_itemKey = str_replace('[', '', $itemKey);
+                    $_itemKey = str_replace(']', '', $_itemKey);
+                    $moreParams = isset($template->item) ? explode(",", $template->item[$_itemKey]) : array('-1');
+                    $i = 0;
+                 ?>
+            <?php foreach ($moreParams as $param) {?>
+                <?php if ($i > 0 && $param != '') {?>
+                    </div>
+                    <div class="field">
+                        <label><?php echo $itemValue['title']; ?>:</label>
+                <?php } ?>
+
+                        <?php if ($i > 0 && $param != '' || $i <= 0) {?>
+                <select <?php if($itemKey == 'type') { ?>required<?php } ?> name="<?php echo $itemKey; ?>">
+                    <option />
+                    <?php foreach ($itemValue['value'] as $key => $value) { ?>
+                    <option value="<?php echo $key; ?>" <?php if ($param == $key) {?>selected="selected"<?php } ?>><?php echo $value; ?></option>
+                    <?php } ?>
+                    <?php ++$i; ?>
+                </select>
+                <span class="plus">+</span>
+                <?php } ?>
+            <?php } ?>
+
+            <?php } ?>
+        </div>
+        <?php } else { ?>
+        <label><?php echo $itemValue; ?>:</label>
+        <?php $itemKey = str_replace('[', '-', $itemKey); $itemKey = str_replace(']', '', $itemKey); ?>
+            <input <?php if($itemKey == 'name') {?>autofocus<?php } ?> <?php if($itemKey == 'name' OR $itemKey == 'id') { ?>required<?php } ?> type="text" name="<?php echo $itemKey; ?>" value="<?php if (isset($template->item) && isset($template->item[$itemKey])) { echo htmlspecialchars($template->item[$itemKey]); }?>">
+        </div>
+        <?php } ?>
+    <?php
+        }
+    ?>
+    <div class="field">
+        <input type="submit" value="<?php if (!isset($template->item)) {?>Добавить<?php } else {?>Редактировать<?php } ?>">
+    </div>
+</form>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

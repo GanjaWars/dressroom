@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <a href="add.php">Добавить предмет</a>
+    <h1>Последние добавленные предметы</h1>
+<?php if (isset($template->lastItems) && is_array($template->lastItems)) {?>
+    <div class="items">
+            <?php foreach ($template->lastItems as $item) {?>
+            <div class="item">
+                <a href="edit.php?id=<?php echo $item['item_id']; ?>"><img src="http://images.ganjawars.ru/img/items/<?php echo $item['item_id']; ?>_s.jpg" alt="<?php echo $item['name']; ?>" /><br/>
+                <?php echo htmlspecialchars($item['name']); ?></a>
+            </div>
+            <?php } ?>
+    </div>
+<?php } ?>
+</body>
+</html>

@@ -1,0 +1,2 @@
+AddDefaultCharset utf8
+php_flag magic_quotes_gpc Off
